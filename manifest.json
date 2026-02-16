@@ -1,0 +1,25 @@
+
+{
+  "name": "روسری ۱۱۰ مومنی",
+  "short_name": "روسری ۱۱۰",
+  "description": "فروشگاه روسری مجلسی و روزمره",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fdfaf7",
+  "theme_color": "#6b21a8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

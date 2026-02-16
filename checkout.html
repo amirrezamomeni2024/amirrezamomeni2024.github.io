@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>نهایی کردن خرید | روسری ۱۱۰ مومنی</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light-theme">
+
+  <header>
+    <div class="logo">روسری ۱۱۰ مومنی</div>
+    <nav>
+      <button id="theme-toggle" class="btn btn-outline" title="تغییر تم">🌙</button>
+      <a href="index.html" class="btn btn-outline">بازگشت به فروشگاه</a>
+    </nav>
+  </header>
+
+  <main class="container" style="padding: 3rem 5%;">
+    <h1>جمع‌بندی و نهایی کردن سفارش</h1>
+
+    <section class="cart-section">
+      <h2>محصولات انتخاب‌شده</h2>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>محصول</th>
+              <th>قیمت واحد</th>
+              <th>تعداد</th>
+              <th>جمع</th>
+            </tr>
+          </thead>
+          <tbody id="checkout-items"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="total-label">جمع کل:</td>
+              <td id="checkout-total" class="total-value">۰ تومان</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <h2>اطلاعات تحویل</h2>
+
+      <form style="display: flex; flex-direction: column; gap: 1.6rem; margin-top: 1.8rem;">
+        <input type="text" placeholder="نام و نام خانوادگی" required>
+        <input type="tel" placeholder="شماره موبایل" required pattern="[0-9]{11}">
+
+        <div class="shipping-options">
+          <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--muted);">روش ارسال</h3>
+          
+          <label class="shipping-card">
+            <input type="radio" name="shipping" value="snap" disabled>
+            <div class="card-content">
+              <div class="icon">🚘</div>
+              <div class="info">
+                <strong>ارسال با اسنپ</strong>
+                <span class="soon">به زودی فعال می‌شود</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="shipping-card">
+            <input type="radio" name="shipping" value="inperson" checked required>
+            <div class="card-content">
+              <div class="icon">🏬</div>
+              <div class="info">
+                <strong>تحویل حضوری</strong>
+                <span class="desc">خودتان به فروشگاه مراجعه کنید و سفارش را تحویل بگیرید</span>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(107,33,168,0.05); border-radius: 12px; font-size: 0.95rem; color: var(--muted); line-height: 1.6;">
+          <strong>ساعات کاری فروشگاه:</strong><br>
+          شنبه تا چهارشنبه: ۸ صبح تا ۶ عصر<br>
+          پنج‌شنبه: ۸ صبح تا ۲ ظهر<br>
+          جمعه: تعطیل
+        </div>
+      </form>
+    </section>
+    <section style="margin-top: 4rem; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto; padding: 2rem; background: var(--card-bg); border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+      <h2>پرداخت نهایی (تستی / دمو)</h2>
+      <p style="font-size: 1.3rem; margin: 1rem 0;">جمع کل: <span id="checkout-total" class="total-value">۰ تومان</span></p>
+
+      <button type="button" class="btn btn-primary" id="fake-pay-button" 
+              style="font-size:1.4rem; padding:1.3rem 3.5rem; margin-top:1.5rem; background: linear-gradient(90deg, #10b981, #34d399);">
+        پرداخت الکی (شبیه‌سازی)
+      </button>
+
+      <!-- انیمیشن پردازش -->
+      <div id="payment-processing" class="payment-processing hidden" style="margin-top:2rem;">
+        <div class="loader"></div>
+        <p style="margin-top:1rem; font-size:1.2rem; color: var(--text);">در حال پردازش پرداخت...</p>
+      </div>
+
+      <!-- پیام موفقیت -->
+      <div id="payment-success" class="payment-success hidden" style="margin-top:2rem;">
+        <h3 style="color:#10b981; font-size:2rem; margin-bottom:1rem;">پرداخت با موفقیت انجام شد!</h3>
+        <p style="font-size:1.2rem; color:#374151;">سبد خرید خالی شد. سفارش شما ثبت شد.</p>
+        <button onclick="window.location.href='index.html'" class="btn btn-outline" style="margin-top:1.5rem; font-size:1.1rem;">
+          بازگشت به فروشگاه
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+
+  <script>
+    function updateCheckoutCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const itemsBody = document.getElementById("checkout-items");
+      const totalEl = document.getElementById("checkout-total");
+      let total = 0;
+
+      itemsBody.innerHTML = ''; // پاک کردن جدول قبلی
+
+      if (cart.length === 0) {
+        itemsBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem; color:var(--muted);">سبد خرید خالی است</td></tr>';
+      } else {
+        cart.forEach(item => {
+          const sum = item.price * item.quantity;
+          total += sum;
+          itemsBody.innerHTML += `
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.price.toLocaleString("fa-IR")}</td>
+              <td>${item.quantity}</td>
+              <td>${sum.toLocaleString("fa-IR")}</td>
+            </tr>
+          `;
+        });
+      }
+
+      totalEl.textContent = `${total.toLocaleString("fa-IR")} تومان`;
+    }
+
+
+    updateCheckoutCart();
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'cart') {
+        updateCheckoutCart();
+      }
+    });
+
+    window.addEventListener('focus', updateCheckoutCart);
+    document.getElementById("fake-pay-button").addEventListener("click", function() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("سبد خرید خالی است!");
+        return;
+      }
+
+      // محاسبه مبلغ دقیق برای نمایش در پیام
+      let amount = 0;
+      cart.forEach(item => amount += item.price * item.quantity);
+      const amountText = amount.toLocaleString("fa-IR") + " تومان";
+
+      // مخفی کردن دکمه و نشان دادن پردازش
+      this.style.display = "none";
+      document.getElementById("payment-processing").classList.remove("hidden");
+
+      // شبیه‌سازی تاخیر پرداخت (۳.۵ ثانیه)
+      setTimeout(() => {
+        document.getElementById("payment-processing").classList.add("hidden");
+        document.getElementById("payment-success").classList.remove("hidden");
+
+        // خالی کردن سبد خرید
+        localStorage.removeItem("cart");
+
+        // بروز کردن جدول
+        updateCheckoutCart();
+
+        // پیام دقیق در alert مرورگر
+        alert("پرداخت مبلغ " + amountText + " با موفقیت انجام شد.\nبرای تکمیل خرید روی گزینه OK کلیک کنید.");
+      }, 3500);
+    });
+  </script>
+</body>
+</html>

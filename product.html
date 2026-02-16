@@ -1,0 +1,46 @@
+<!--product.html-->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>روسری ابریشم مجلسی بنفش | روسری ۱۱۰ مومنی</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light-theme">
+
+  <header>
+    <!-- همون هدر قبلی رو کپی کن -->
+    <div class="logo">روسری ۱۱۰ مومنی</div>
+    <nav>
+      <span id="user-greeting" class="greeting"></span>
+      <button id="theme-toggle" class="btn btn-outline" title="تغییر تم">🌙</button>
+      <button id="logout-btn" class="btn btn-outline hidden" onclick="logout()">خروج</button>
+      <a href="index.html" class="btn btn-outline">بازگشت به فروشگاه</a>
+    </nav>
+  </header>
+
+  <main class="container" style="padding: 3rem 5%;">
+    <div class="product-detail fade-in">
+      <div class="product-image">
+        <img src="images/scarf1.jpg" alt="روسری ابریشم مجلسی بنفش" style="width:100%; max-height:500px; object-fit:cover; border-radius:16px;">
+      </div>
+      
+      <div class="product-info">
+        <h1>روسری ابریشم مجلسی بنفش</h1>
+        <div class="price">۱,۴۸۰,۰۰۰ تومان</div>
+        
+        <p>جنس: ابریشم طبیعی ۱۰۰٪<br>
+           ابعاد: ۱۴۰×۱۴۰ سانتی‌متر<br>
+           رنگ: بنفش یاسی (گرادیان)<br>
+           حاشیه: دست‌دوز با کریستال سواروسکی<br>
+           مناسب: مجالس رسمی، عروسی، مهمانی</p>
+        
+        <button class="btn btn-primary" style="font-size:1.2rem; padding:1rem 2rem;" onclick="addToCart(1)">افزودن به سبد خرید</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
