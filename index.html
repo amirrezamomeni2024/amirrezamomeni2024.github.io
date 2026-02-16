@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>روسری ۱۱۰ مومنی | فروشگاه روسری مجلسی و روزمره</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light-theme">
+
+  <header>
+    <div class="logo">روسری ۱۱۰ مومنی</div>
+    <nav>
+      <span id="user-greeting" class="greeting"></span>
+      <button id="manage-products-btn" class="btn btn-outline hidden" title="مدیریت محصولات">
+        ⚙️ مدیریت محصولات
+      </button>
+      <button id="theme-toggle" class="btn btn-outline" title="تغییر تم">🌙</button>
+      <button id="logout-btn" class="btn btn-outline hidden" onclick="logout()">خروج</button>
+    </nav>
+  </header>
+
+  <div id="notification-toast" class="notification-toast hidden"></div>
+
+  <main id="login-section" class="auth-container">
+    <div class="auth-card">
+      <h1>ورود به فروشگاه</h1>
+      <form id="login-form" onsubmit="event.preventDefault(); login();">
+        <input type="text" id="username" placeholder="نام کاربری" required autofocus />
+        <input type="password" id="password" placeholder="رمز عبور" required />
+        <button type="submit" class="btn btn-primary">ورود</button>
+      </form>
+    </div>
+  </main>
+
+  <main id="customer-section" class="hidden">
+    <div class="container">
+      <h1>مجموعه روسری‌ها</h1>
+
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="جستجو در محصولات..." class="search-input" />
+      </div>
+
+      <div id="product-grid" class="product-grid"></div>
+
+      <section class="cart-section fade-in">
+        <h2>سبد خرید</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>محصول</th>
+                <th>قیمت واحد</th>
+                <th>تعداد</th>
+                <th>جمع</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="total-label">جمع کل:</td>
+                <td id="cart-total" class="total-value">۰ تومان</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <button onclick="window.location.href='checkout.html'" 
+                class="btn btn-primary" 
+                style="margin-top: 2rem; width: 100%; font-size: 1.25rem; padding: 1.1rem;">
+          نهایی کردن خرید ←
+        </button>
+      </section>
+    </div>
+  </main>
+
+  <main id="admin-section" class="hidden">
+    <div class="container">
+      <h1>پنل مدیریت</h1>
+      <section>
+        <h2>فهرست محصولات</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>نام محصول</th>
+                <th>قیمت (تومان)</th>
+              </tr>
+            </thead>
+            <tbody id="admin-product-list"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal مدیریت محصولات -->
+  <div id="manage-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('manage-modal')">×</span>
+      <h2>چه کاری می‌خواهید انجام دهید؟</h2>
+      <div class="options">
+        <button class="option-btn add-btn" onclick="openModal('add-product-modal')">اضافه کردن محصول</button>
+        <button class="option-btn delete-btn" onclick="openModal('delete-product-modal')">حذف محصول</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal اضافه محصول -->
+  <div id="add-product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('add-product-modal')">×</span>
+      <h2>اضافه کردن محصول جدید</h2>
+      <form id="add-product-form" onsubmit="event.preventDefault(); addProduct();">
+        <input type="text" id="new-name" placeholder="نام محصول (با روسری یا شال شروع شود)" required />
+        <input type="text" id="new-image" placeholder="نام عکس (مثل scarf5.jpg)" required />
+        <input type="number" id="new-price" placeholder="قیمت (۲۰۰۰۰۰ تا ۵۰۰۰۰۰۰ تومان)" min="200000" max="5000000" required />
+        <button type="submit" class="btn btn-primary">تایید</button>
+        <button type="button" class="btn btn-outline" onclick="closeModal('add-product-modal')">انصراف</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal حذف محصول -->
+  <div id="delete-product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('delete-product-modal')">×</span>
+      <h2>حذف محصول</h2>
+      <div id="delete-list" class="delete-list"></div>
+    </div>
+  </div>
+
+  <!-- Modal تایید حذف -->
+  <div id="confirm-delete-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('confirm-delete-modal')">×</span>
+      <h2>آیا شما از حذف کردن <span id="delete-product-name"></span> مطمئن هستید؟</h2>
+      <div class="options">
+        <button class="option-btn no-delete-btn" onclick="closeModal('confirm-delete-modal')">خیر، حذف نشود</button>
+        <button class="option-btn yes-delete-btn" onclick="confirmDeleteProduct()">بله، حذف شود</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="back-to-top" class="back-to-top" title="بازگشت به بالا">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
