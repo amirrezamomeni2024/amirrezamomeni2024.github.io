@@ -204,16 +204,48 @@ h1, h2 {
 .card-image-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(107, 33, 168, 0.65);
+  background: rgba(107, 33, 168, 0.70);   /* opacity رو بیشتر کردم که واضح‌تر باشه */
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
   text-align: center;
-  pointer-events: auto;
+  pointer-events: none;   /* ← این خط رو موقتاً کامنت کن یا حذف کن */
+}
+
+.card:hover .card-image-overlay {
+  opacity: 1;
+  pointer-events: auto;   /* ← این خط خیلی مهمه! بدون این دکمه کلیک نمی‌شه */
+}
+
+.card-image-overlay h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.4rem;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+  padding: 0 1rem;
+}
+
+.card-image-overlay .add-to-cart-btn {
+  background: #ffffff;
+  color: var(--primary);
+  border: 2px solid white;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.card-image-overlay .add-to-cart-btn:hover {
+  background: #f8f8f8;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }
 
 .card-image-overlay h3 {
