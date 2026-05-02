@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>سیستم فروش | روسری فروشی ۱۱۰ مومنی</title>
+    <style>
+        /* فونت وزیرمتن برای کل سایت */
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('Vazirmatn-VariableFont_wght.ttf') format('truetype-variations');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        /* فونت لاگین */
+        @font-face {
+            font-family: 'Koolooche';
+            src: url('koolooche_font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* فونت پیش‌فرض برای کل سایت */
+        body, button, input, select, textarea, .main-content, .header, .products-section, .invoice-section,
+        .stat-card, .product-card, .cart-item, .total-row, .history-item, .modal-content {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif !important;
+        }
+        
+        /* فونت لاگین */
+        .login-container,
+        .login-container * {
+            font-family: 'Koolooche', 'Vazirmatn', Tahoma, sans-serif !important;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f0e8, #e8ddd0);
+            color: #2c1a12;
+            transition: all 0.3s ease;
+        }
+        
+        /* حالت لایت مود (پیش‌فرض) */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f0e8, #e8ddd0);
+            color: #2c1a12;
+        }
+        
+        body.light-mode .main-content {
+            background: linear-gradient(135deg, #f5f0e8, #e8ddd0);
+        }
+        
+        body.light-mode .header,
+        body.light-mode .stat-card,
+        body.light-mode .product-card,
+        body.light-mode .invoice-section,
+        body.light-mode .modal-content,
+        body.light-mode .history-item,
+        body.light-mode .search-product-area {
+            background: white;
+            border-color: #efe2d4;
+        }
+        
+        body.light-mode .header {
+            background: rgba(255,255,255,0.95);
+        }
+        
+        body.light-mode .logo h1 {
+            background: linear-gradient(135deg, #8b5a3c, #d4965c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        body.light-mode .logo p {
+            color: #b88b62;
+        }
+        
+        body.light-mode .stat-value {
+            color: #c28556;
+        }
+        
+        body.light-mode .product-name {
+            color: #2c1a12;
+        }
+        
+        body.light-mode .product-price {
+            color: #c28556;
+        }
+        
+        body.light-mode .cart-item,
+        body.light-mode .total-row {
+            color: #2c1a12;
+        }
+        
+        body.light-mode .search-box input {
+            background: #fefaf5;
+            color: #2c1a12;
+        }
+        
+        body.light-mode .buyer-form input,
+        body.light-mode .payment-select,
+        body.light-mode .discount-input {
+            background: #fefaf5;
+            color: #2c1a12;
+            border-color: #e9cfb5;
+        }
+        
+        body.light-mode .tab-btn {
+            background: #e8d9cc;
+            color: #4f311d;
+        }
+        
+        body.light-mode .tab-btn.active {
+            background: #c28556;
+            color: white;
+        }
+        
+        body.light-mode .btn-clear {
+            background: #dc3545;
+            color: white;
+        }
+        
+        body.light-mode .btn-print {
+            background: #9e7050;
+            color: white;
+        }
+        
+        body.light-mode .add-btn,
+        body.light-mode .search-box button {
+            background: #9e7050;
+            color: white;
+        }
+        
+        body.light-mode .history-item {
+            background: #fefbf7;
+            border-color: #efe2d4;
+        }
+        
+        /* حالت دارک مود */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f23);
+            color: #e8e8e8;
+        }
+        
+        body.dark-mode .main-content {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f23);
+        }
+        
+        body.dark-mode .header,
+        body.dark-mode .stat-card,
+        body.dark-mode .product-card,
+        body.dark-mode .invoice-section,
+        body.dark-mode .modal-content,
+        body.dark-mode .history-item,
+        body.dark-mode .search-product-area {
+            background: #1e1e3a;
+            border-color: #2d2d44;
+        }
+        
+        body.dark-mode .header {
+            background: rgba(30, 30, 58, 0.95);
+        }
+        
+        body.dark-mode .logo h1 {
+            background: linear-gradient(135deg, #e8a87c, #c28556);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        body.dark-mode .logo p {
+            color: #b88b62;
+        }
+        
+        body.dark-mode .stat-value {
+            color: #e8a87c;
+        }
+        
+        body.dark-mode .product-name {
+            color: white;
+        }
+        
+        body.dark-mode .product-price {
+            color: #e8a87c;
+        }
+        
+        body.dark-mode .cart-item,
+        body.dark-mode .total-row {
+            color: #e8e8e8;
+        }
+        
+        body.dark-mode .search-box input {
+            background: #2a2a48;
+            color: #e8e8e8;
+            border-color: #3d3d5c;
+        }
+        
+        body.dark-mode .buyer-form input,
+        body.dark-mode .payment-select,
+        body.dark-mode .discount-input {
+            background: #2a2a48;
+            color: #e8e8e8;
+            border-color: #3d3d5c;
+        }
+        
+        body.dark-mode .tab-btn {
+            background: #2a2a48;
+            color: #e8e8e8;
+        }
+        
+        body.dark-mode .tab-btn.active {
+            background: #c28556;
+            color: white;
+        }
+        
+        body.dark-mode .add-btn,
+        body.dark-mode .search-box button {
+            background: #9e7050;
+            color: white;
+        }
+        
+        body.dark-mode .history-item {
+            background: #2a2a48;
+            border-color: #3d3d5c;
+        }
+        
+        body.dark-mode .history-customer {
+            color: white;
+        }
+        
+        body.dark-mode .history-date {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* ========== صفحه لاگین خفن ========== */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a2a, #050510);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+        }
+        
+        .login-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .aurora {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, 
+                rgba(0, 255, 100, 0.03) 0%, 
+                rgba(0, 150, 255, 0.03) 25%,
+                rgba(150, 0, 255, 0.03) 50%,
+                rgba(255, 0, 150, 0.03) 75%,
+                rgba(0, 255, 100, 0.03) 100%);
+            animation: auroraMove 15s ease infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes auroraMove {
+            0%, 100% { transform: translateX(-10%) scale(1); opacity: 0.5; }
+            50% { transform: translateX(10%) scale(1.1); opacity: 0.8; }
+        }
+        
+        .glow-rings {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(194, 133, 86, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 4s ease-out infinite;
+        }
+        
+        .ring:nth-child(2) {
+            width: 450px;
+            height: 450px;
+            animation-delay: 1s;
+        }
+        
+        .ring:nth-child(3) {
+            width: 600px;
+            height: 600px;
+            animation-delay: 2s;
+        }
+        
+        @keyframes ringPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+        }
+        
+        .login-card {
+            position: relative;
+            z-index: 100;
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(194, 133, 86, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-logo {
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-logo .icon {
+            font-size: 3.5rem;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px rgba(194, 133, 86, 0.4));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .login-logo h2 {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #e8a87c, #c28556);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-top: 0.5rem;
+        }
+        
+        .login-logo p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 0.4rem;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(194, 133, 86, 0.3);
+            border-radius: 0.8rem;
+            font-size: 0.9rem;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #c28556;
+            box-shadow: 0 0 0 3px rgba(194, 133, 86, 0.15);
+        }
+        
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #c28556, #9a6842);
+            color: white;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.2rem 0;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.7rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+        
+        .divider span {
+            padding: 0 0.8rem;
+        }
+        
+        .shop-info {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+        
+        .error-message {
+            background: rgba(220, 38, 38, 0.2);
+            color: #f87171;
+            padding: 0.6rem;
+            border-radius: 0.8rem;
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            display: none;
+            border-right: 3px solid #ef4444;
+        }
+        
+        .error-message.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-4px); }
+            40% { transform: translateX(4px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ========== داشبورد خفن ========== */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            backdrop-filter: blur(15px);
+            border-radius: 1.2rem;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        body.dark-mode .header {
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .logo h1 {
+            font-size: 1.1rem;
+        }
+        
+        .logo p {
+            font-size: 0.6rem;
+        }
+        
+        .header-left {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .theme-btn, .logout-btn {
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .theme-btn {
+            background: #e8d9cc;
+        }
+        
+        body.dark-mode .theme-btn {
+            background: #2a2a48;
+            color: white;
+        }
+        
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .stat-card {
+            border-radius: 1rem;
+            padding: 0.8rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        
+        body.dark-mode .stat-card {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        
+        .stat-label {
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 2rem;
+            transition: all 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .tab-btn.active {
+            background: #c28556;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 0.5rem 0.8rem;
+            border: 1px solid;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+        }
+        
+        .search-box button, .add-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box button:hover, .add-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.8rem;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 550px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .product-card {
+            border-radius: 1rem;
+            padding: 0.8rem;
+            border: 1px solid;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-name {
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .product-code {
+            font-size: 0.55rem;
+            opacity: 0.6;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            margin: 0.4rem 0;
+            font-size: 1rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+        }
+        
+        .product-actions button {
+            flex: 1;
+            padding: 0.35rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .product-actions button:hover {
+            transform: scale(1.02);
+        }
+        
+        .sell-product { background: #9e7050; color: white; }
+        .edit-product { background: #ffc107; color: #333; }
+        .delete-product { background: #dc3545; color: white; }
+        
+        .invoice-section {
+            border-radius: 1rem;
+            padding: 1rem;
+            border: 1px solid;
+        }
+        
+        .invoice-header {
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        body.dark-mode .invoice-header {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .buyer-form input, .payment-select, .discount-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid;
+            border-radius: 0.7rem;
+            font-size: 0.8rem;
+        }
+        
+        .search-product-area {
+            border-radius: 0.8rem;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .search-product-area h4 {
+            font-size: 0.75rem;
+            margin-bottom: 0.4rem;
+        }
+        
+        .search-results {
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        
+        .search-result-item {
+            padding: 0.4rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        body.dark-mode .search-result-item {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .search-result-item:hover {
+            transform: translateX(-5px);
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 0.75rem;
+        }
+        
+        body.dark-mode .cart-item {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        
+        .cart-item-code {
+            font-size: 0.55rem;
+            opacity: 0.6;
+        }
+        
+        .remove-cart {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .remove-cart:hover {
+            transform: scale(1.1);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.4rem 0;
+            font-size: 0.8rem;
+        }
+        
+        .total-final {
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 0.4rem;
+        }
+        
+        body.dark-mode .total-final {
+            border-top-color: rgba(255,255,255,0.1);
+        }
+        
+        .invoice-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        
+        .invoice-btns button {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .invoice-btns button:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn-clear { background: #dc3545; color: white; }
+        .btn-print { background: #9e7050; color: white; }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid;
+        }
+        
+        .modal-content h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        
+        .modal-content input {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.6rem;
+            border: 1px solid;
+            border-radius: 0.7rem;
+            font-size: 0.8rem;
+        }
+        
+        .history-list {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+        
+        .history-item {
+            border-radius: 0.8rem;
+            padding: 0.6rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .history-item:hover {
+            transform: translateX(-5px);
+        }
+        
+        .history-customer {
+            font-weight: 800;
+        }
+        
+        .history-amount {
+            font-weight: 700;
+        }
+        
+        .history-date {
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        
+        .history-checkbox {
+            margin-left: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40,167,69,0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            z-index: 2500;
+            opacity: 0;
+            transition: 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #c28556; border-radius: 10px; }
+        
+        body.dark-mode ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="light-mode">
+
+<!-- لاگین -->
+<div id="loginContainer" class="login-container">
+    <div class="stars" id="stars"></div>
+    <div class="aurora"></div>
+    <div class="glow-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+    </div>
+    
+    <div class="login-card">
+        <div class="login-logo">
+            <div class="icon">🧣</div>
+            <h2>روسری فروشی ۱۱۰ مومنی</h2>
+            <p>لوکس‌ترین سیستم فروش حرفه‌ای</p>
+        </div>
+        
+        <div class="input-group">
+            <label>👤 نام کاربری</label>
+            <input type="text" id="loginUsername" placeholder="0074644041">
+        </div>
+        
+        <div class="input-group">
+            <label>🔒 رمز عبور</label>
+            <input type="password" id="loginPassword" placeholder="********">
+        </div>
+        
+        <button class="login-btn" id="loginBtn">ورود به پنل فروش ✨</button>
+        
+        <div class="divider">
+            <span>فروشگاه تخصصی روسری، شال و مقنعه</span>
+        </div>
+        
+        <div class="shop-info">
+            <div>📍 تهران، خیابان مومنی، پلاک ۱۱۰</div>
+            <div>📞 ۰۲۱-۱۲۳۴۵۶۷۸ | 🕘 ۹ صبح تا ۸ شب</div>
+            <div>⭐ ۱۵ سال تجربه درخشان | ضمانت اصالت کالا</div>
+        </div>
+        
+        <div id="loginError" class="error-message"></div>
+    </div>
+</div>
+
+<!-- داشبورد -->
+<div id="mainContent" class="main-content">
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <h1>🧣 روسری فروشی ۱۱۰ مومنی</h1>
+                <p>سیستم فروش هوشمند</p>
+            </div>
+            <div class="header-left">
+                <button class="theme-btn" id="themeBtn">🌙</button>
+                <button class="logout-btn" id="logoutBtn">🚪 خروج</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-value" id="statProducts">0</div><div class="stat-label">کل محصولات</div></div>
+            <div class="stat-card"><div class="stat-icon">🛒</div><div class="stat-value" id="statTodaySales">0</div><div class="stat-label">فروش امروز</div></div>
+            <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-value" id="statTotalSales">0</div><div class="stat-label">کل فروش</div></div>
+            <div class="stat-card"><div class="stat-icon">📜</div><div class="stat-value" id="statInvoices">0</div><div class="stat-label">تعداد فاکتورها</div></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="products">📦 محصولات</button>
+            <button class="tab-btn" data-tab="invoice">🧾 فاکتور</button>
+            <button class="tab-btn" data-tab="history">📜 تاریخچه</button>
+            <button class="tab-btn" data-tab="backup">💾 پشتیبان</button>
+        </div>
+
+        <div id="tab-products" class="tab-content active">
+            <div class="products-header">
+                <div class="search-box">
+                    <input type="text" id="productSearch" placeholder="جستجو با نام یا کد...">
+                    <button id="searchBtn">🔍</button>
+                </div>
+                <button class="add-btn" id="openAddProductModal">➕ افزودن</button>
+            </div>
+            <div id="productList" class="product-grid"></div>
+        </div>
+
+        <div id="tab-invoice" class="tab-content">
+            <div class="invoice-section">
+                <div class="invoice-header">
+                    <h3>🧾 فاکتور فروش</h3>
+                    <small id="invoiceDate"></small>
+                </div>
+                
+                <div class="search-product-area">
+                    <h4>🔍 جستجوی سریع محصول</h4>
+                    <input type="text" id="quickProductSearch" placeholder="نام یا کد...">
+                    <div id="quickSearchResults" class="search-results"></div>
+                </div>
+                
+                <div class="buyer-form">
+                    <input type="text" id="customerName" placeholder="نام خریدار *">
+                    <input type="text" id="customerPhone" placeholder="شماره تماس">
+                    <input type="text" id="customerAddress" placeholder="آدرس">
+                </div>
+                
+                <select id="paymentType" class="payment-select">
+                    <option value="cash">نقدی</option>
+                    <option value="check">چک</option>
+                    <option value="both">نقدی + چک</option>
+                    <option value="other">سایر</option>
+                </select>
+                <div id="bothPayment" style="display:none;">
+                    <input type="number" id="cashAmount" placeholder="مبلغ نقدی">
+                    <input type="number" id="checkAmount" placeholder="مبلغ چک">
+                </div>
+                <div id="otherPayment" style="display:none;">
+                    <input type="text" id="otherText" placeholder="توضیحات">
+                </div>
+                
+                <input type="number" id="discountPercent" class="discount-input" placeholder="درصد تخفیف">
+                
+                <div style="font-weight:700; margin:0.5rem 0;">🛒 سبد خرید</div>
+                <div id="cartList" style="max-height:250px; overflow-y:auto;"></div>
+                
+                <div class="total-row"><span>جمع کل:</span><span id="subtotal">0 تومان</span></div>
+                <div class="total-row" id="discountRow" style="display:none;"><span>تخفیف (<span id="discountPercentVal">0</span>%):</span><span id="discountAmount">0 تومان</span></div>
+                <div class="total-row total-final"><span>💰 قابل پرداخت:</span><span id="totalAmount">0 تومان</span></div>
+                
+                <div class="invoice-btns">
+                    <button class="btn-clear" id="clearCartBtn">🗑 خالی کردن</button>
+                    <button class="btn-print" id="printInvoiceBtn">🖨 چاپ فاکتور</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-history" class="tab-content">
+            <div class="products-header">
+                <h3>📜 تاریخچه فاکتورها</h3>
+                <div>
+                    <button class="add-btn" id="deleteSelectedBtn" style="background:#dc3545;">🗑 حذف انتخاب</button>
+                    <button class="add-btn" id="clearHistoryBtn" style="background:#6c757d;">🗑 همه</button>
+                </div>
+            </div>
+            <div id="historyList" class="history-list"></div>
+        </div>
+
+        <div id="tab-backup" class="tab-content">
+            <div class="products-header">
+                <h3>💾 پشتیبان</h3>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="add-btn" id="manualBackupBtn" style="background:#28a745;">📁 بکاپ دستی</button>
+                <button class="add-btn" id="restoreBackupBtn" style="background:#ffc107; color:#333;">🔄 بازیابی</button>
+            </div>
+            <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(0,0,0,0.03); border-radius: 0.5rem;">
+                <span style="font-size:0.7rem;">🤖 بکاپ خودکار هر ۴ ساعت</span>
+            </div>
+            <div id="backupStatus" style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.02); border-radius: 0.5rem; font-size: 0.7rem;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle">➕ محصول جدید</h3>
+        <input type="hidden" id="editId">
+        <input type="text" id="prodName" placeholder="نام محصول">
+        <input type="text" id="prodCode" placeholder="کد محصول">
+        <input type="number" id="buyPrice" placeholder="قیمت خرید">
+        <input type="number" id="sellPrice" placeholder="قیمت فروش">
+        <div style="display: flex; gap: 0.5rem;">
+            <button id="saveProductBtn" style="background:#c28556; color:white; flex:1; padding:0.5rem; border:none; border-radius:2rem;">💾 ذخیره</button>
+            <button id="closeModalBtn" style="background:#e3d4c6; flex:1; padding:0.5rem; border:none; border-radius:2rem;">❌ انصراف</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+    // ستاره‌ها
+    function createStars() {
+        const container = document.getElementById('stars');
+        if(!container) return;
+        for(let i = 0; i < 100; i++) {
+            let star = document.createElement('div');
+            star.classList.add('star');
+            let size = Math.random() * 2.5 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = Math.random() * 3 + 1 + 's';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(star);
+        }
+    }
+    createStars();
+    
+    // متغیرها
+    let products = [];
+    let nextId = 1;
+    let cart = [];
+    let invoices = [];
+    let currentFilter = "";
+    let editMode = false;
+    let selectedInvoices = new Set();
+    let backupInterval = null;
+    
+    function formatPrice(p) { return Math.floor(p).toLocaleString('fa-IR') + ' تومان'; }
+    function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m => m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;')); }
+    
+    function calcDiscount(price, percent) {
+        let discount = Math.floor(price * percent / 100);
+        return { discount: discount, final: price - discount };
+    }
+    
+    function showToast(msg, isError) {
+        let t = document.getElementById('toast');
+        t.textContent = msg;
+        t.style.background = isError ? '#dc3545' : '#28a745';
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+    
+    function updateDateTime() {
+        let now = new Date();
+        let dateSpan = document.getElementById('invoiceDate');
+        if(dateSpan) dateSpan.innerHTML = now.toLocaleDateString('fa-IR') + ' - ' + now.toLocaleTimeString('fa-IR');
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+    
+    function updateStats() {
+        document.getElementById('statProducts').innerText = products.length;
+        let today = new Date().toLocaleDateString('fa-IR');
+        let todaySales = 0, totalSales = 0;
+        for(let inv of invoices) {
+            totalSales += inv.total;
+            if(inv.date.split(' - ')[0] === today) todaySales += inv.total;
+        }
+        document.getElementById('statTodaySales').innerText = formatPrice(todaySales);
+        document.getElementById('statTotalSales').innerText = formatPrice(totalSales);
+        document.getElementById('statInvoices').innerText = invoices.length;
+    }
+    
+    function saveData() {
+        localStorage.setItem('shop_data', JSON.stringify({ products, nextId, invoices }));
+        updateStats();
+    }
+    
+    function loadData() {
+        let saved = localStorage.getItem('shop_data');
+        if(saved) {
+            let data = JSON.parse(saved);
+            products = data.products || [];
+            nextId = data.nextId || 1;
+            invoices = data.invoices || [];
+        }
+        if(products.length === 0) {
+            products = [];
+            nextId = 1;
+        }
+        renderProducts();
+        renderHistory();
+        updateStats();
+    }
+    
+    // بکاپ
+    function triggerBackup() {
+        let status = document.getElementById('backupStatus');
+        if(status) status.innerHTML = '⏳ در حال بکاپ...';
+        fetch('auto_backup.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ products, invoices, nextId })
+        })
+        .then(r => r.json())
+        .then(d => { if(status && d.success) status.innerHTML = '✅ بکاپ: ' + d.file; })
+        .catch(() => { if(status) status.innerHTML = '❌ خطا'; });
+    }
+    
+    function startAutoBackup() {
+        if(backupInterval) clearInterval(backupInterval);
+        setTimeout(() => triggerBackup(), 10000);
+        backupInterval = setInterval(() => triggerBackup(), 4 * 60 * 60 * 1000);
+    }
+    
+    function stopAutoBackup() { if(backupInterval) { clearInterval(backupInterval); backupInterval = null; } }
+    
+    // محصولات
+    function renderProducts() {
+        let container = document.getElementById('productList');
+        let filtered = products.filter(p => p.name.includes(currentFilter) || (p.code && p.code.includes(currentFilter)));
+        if(filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:2rem;">📭 محصولی ثبت نشده</div>';
+            return;
+        }
+        container.innerHTML = '';
+        for(let p of filtered) {
+            let card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-name">🧣 ${escapeHtml(p.name)} ${p.code ? `<span class="product-code">کد: ${escapeHtml(p.code)}</span>` : ''}</div>
+                <div class="product-price">${formatPrice(p.sellPrice)}</div>
+                <div><input type="number" id="qty-${p.id}" value="1" min="1" style="width:60px; padding:5px; border-radius:1rem;"></div>
+                <div class="product-actions">
+                    <button class="sell-product" data-id="${p.id}" data-name="${p.name}" data-price="${p.sellPrice}">➕ فروش</button>
+                    <button class="edit-product" data-id="${p.id}" data-name="${p.name}" data-code="${p.code||''}" data-buy="${p.buyPrice}" data-sell="${p.sellPrice}">✏️</button>
+                    <button class="delete-product" data-id="${p.id}">🗑</button>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+        document.querySelectorAll('.sell-product').forEach(btn => {
+            btn.onclick = () => {
+                let id = parseInt(btn.dataset.id);
+                let qty = parseInt(document.getElementById(`qty-${id}`).value) || 1;
+                addToCart(id, btn.dataset.name, parseInt(btn.dataset.price), qty);
+                switchTab('invoice');
+            };
+        });
+        document.querySelectorAll('.edit-product').forEach(btn => {
+            btn.onclick = () => {
+                document.getElementById('editId').value = btn.dataset.id;
+                document.getElementById('prodName').value = btn.dataset.name;
+                document.getElementById('prodCode').value = btn.dataset.code;
+                document.getElementById('buyPrice').value = btn.dataset.buy;
+                document.getElementById('sellPrice').value = btn.dataset.sell;
+                document.getElementById('modalTitle').innerText = '✏️ ویرایش';
+                editMode = true;
+                document.getElementById('productModal').classList.add('active');
+            };
+        });
+        document.querySelectorAll('.delete-product').forEach(btn => {
+            btn.onclick = () => {
+                if(confirm('حذف شود؟')) {
+                    let id = parseInt(btn.dataset.id);
+                    products = products.filter(p => p.id !== id);
+                    cart = cart.filter(i => i.id !== id);
+                    saveData();
+                    renderProducts();
+                    renderCart();
+                    showToast('حذف شد');
+                }
+            };
+        });
+    }
+    
+    function saveProduct() {
+        let name = document.getElementById('prodName').value.trim();
+        let code = document.getElementById('prodCode').value.trim();
+        let buy = parseInt(document.getElementById('buyPrice').value);
+        let sell = parseInt(document.getElementById('sellPrice').value);
+        if(!name) { showToast('نام الزامی', true); return; }
+        if(isNaN(buy) || buy<=0) { showToast('قیمت خرید نامعتبر', true); return; }
+        if(isNaN(sell) || sell<=0) { showToast('قیمت فروش نامعتبر', true); return; }
+        if(editMode) {
+            let id = parseInt(document.getElementById('editId').value);
+            let idx = products.findIndex(p => p.id === id);
+            if(idx !== -1) products[idx] = { ...products[idx], name, code, buyPrice: buy, sellPrice: sell };
+            showToast('ویرایش شد');
+            editMode = false;
+        } else {
+            products.push({ id: nextId++, name, code, buyPrice: buy, sellPrice: sell });
+            showToast('محصول اضافه شد');
+        }
+        document.getElementById('productModal').classList.remove('active');
+        document.getElementById('prodName').value = '';
+        document.getElementById('prodCode').value = '';
+        document.getElementById('buyPrice').value = '';
+        document.getElementById('sellPrice').value = '';
+        saveData();
+        renderProducts();
+    }
+    
+    // سبد خرید
+    function addToCart(id, name, price, qty) {
+        let existing = cart.find(i => i.id === id);
+        if(existing) existing.quantity += qty;
+        else cart.push({ id, name, code: products.find(p=>p.id===id)?.code || '', sellPrice: price, quantity: qty });
+        renderCart();
+        showToast(`${qty} عدد اضافه شد`);
+    }
+    
+    function renderCart() {
+        let discountPercent = parseFloat(document.getElementById('discountPercent').value) || 0;
+        if(discountPercent < 0) discountPercent = 0;
+        if(discountPercent > 100) discountPercent = 100;
+        let container = document.getElementById('cartList');
+        if(!cart.length) {
+            container.innerHTML = '<div style="text-align:center; padding:1rem;">🛒 سبد خرید خالی</div>';
+            document.getElementById('subtotal').innerText = '0 تومان';
+            document.getElementById('totalAmount').innerText = '0 تومان';
+            document.getElementById('discountRow').style.display = 'none';
+            return;
+        }
+        let subtotal = 0, html = '';
+        for(let item of cart) {
+            let itemTotal = item.sellPrice * item.quantity;
+            subtotal += itemTotal;
+            html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong>${item.code ? `<div class="cart-item-code">کد: ${escapeHtml(item.code)}</div>` : ''}<div style="font-size:0.65rem;">${item.quantity} × ${formatPrice(item.sellPrice)}</div></div><div>${formatPrice(itemTotal)} <button class="remove-cart" data-id="${item.id}">🗑</button></div></div>`;
+        }
+        container.innerHTML = html;
+        document.getElementById('subtotal').innerHTML = formatPrice(subtotal);
+        let discountResult = calcDiscount(subtotal, discountPercent);
+        if(discountPercent > 0) {
+            document.getElementById('discountRow').style.display = 'flex';
+            document.getElementById('discountPercentVal').innerText = discountPercent;
+            document.getElementById('discountAmount').innerHTML = formatPrice(discountResult.discount);
+        } else { document.getElementById('discountRow').style.display = 'none'; }
+        document.getElementById('totalAmount').innerHTML = formatPrice(discountResult.final);
+        document.querySelectorAll('.remove-cart').forEach(btn => {
+            btn.onclick = () => {
+                cart = cart.filter(i => i.id !== parseInt(btn.dataset.id));
+                renderCart();
+                showToast('حذف شد');
+            };
+        });
+    }
+    
+    function clearCart() { cart = []; renderCart(); showToast('سبد خالی شد'); }
+    
+    function quickSearchProducts() {
+        let term = document.getElementById('quickProductSearch').value.trim().toLowerCase();
+        let res = document.getElementById('quickSearchResults');
+        if(term === '') { res.innerHTML = ''; return; }
+        let filtered = products.filter(p => p.name.toLowerCase().includes(term) || (p.code && p.code.toLowerCase().includes(term)));
+        if(filtered.length === 0) { res.innerHTML = '<div style="padding:0.5rem;">❌ یافت نشد</div>'; return; }
+        res.innerHTML = '';
+        for(let p of filtered.slice(0, 6)) {
+            let d = document.createElement('div');
+            d.className = 'search-result-item';
+            d.innerHTML = `<div><strong>${escapeHtml(p.name)}</strong><br><small>${formatPrice(p.sellPrice)}</small></div><div><input type="number" id="sq-${p.id}" value="1" min="1" style="width:50px;"><button class="quick-add" data-id="${p.id}" data-name="${p.name}" data-price="${p.sellPrice}" style="background:#9e7050; color:white; border:none; padding:4px 8px; border-radius:1rem;">➕</button></div>`;
+            res.appendChild(d);
+        }
+        document.querySelectorAll('.quick-add').forEach(btn => {
+            btn.onclick = () => {
+                let id = parseInt(btn.dataset.id);
+                let qty = parseInt(document.getElementById(`sq-${id}`).value) || 1;
+                addToCart(id, btn.dataset.name, parseInt(btn.dataset.price), qty);
+                document.getElementById('quickProductSearch').value = '';
+                res.innerHTML = '';
+            };
+        });
+    }
+    
+    function getPaymentText() {
+        let type = document.getElementById('paymentType').value;
+        if(type === 'cash') return 'نقدی';
+        if(type === 'check') return 'چک';
+        if(type === 'both') {
+            let cash = document.getElementById('cashAmount').value;
+            let check = document.getElementById('checkAmount').value;
+            return `نقدی: ${cash ? parseInt(cash).toLocaleString('fa-IR') : 0} - چک: ${check ? parseInt(check).toLocaleString('fa-IR') : 0}`;
+        }
+        return document.getElementById('otherText').value.trim() || 'سایر';
+    }
+    
+    function saveInvoiceAndPrint() {
+        let name = document.getElementById('customerName').value.trim();
+        if(!name) { showToast('نام خریدار الزامی', true); return; }
+        if(!cart.length) { showToast('سبد خرید خالی', true); return; }
+        let subtotal = cart.reduce((s,i) => s + (i.sellPrice * i.quantity), 0);
+        let discount = parseFloat(document.getElementById('discountPercent').value) || 0;
+        let discRes = calcDiscount(subtotal, discount);
+        let invoice = {
+            id: invoices.length + 1,
+            date: new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR'),
+            customer: name,
+            phone: document.getElementById('customerPhone').value,
+            address: document.getElementById('customerAddress').value,
+            payment: getPaymentText(),
+            items: JSON.parse(JSON.stringify(cart)),
+            subtotal: subtotal,
+            discountPercent: discount,
+            discountAmount: discRes.discount,
+            total: discRes.final
+        };
+        invoices.unshift(invoice);
+        saveData();
+        renderHistory();
+        localStorage.setItem('pending_invoice', JSON.stringify(invoice));
+        let win = window.open('', '_blank');
+        win.document.write(getInvoiceHTML(invoice));
+        win.document.close();
+        setTimeout(() => win.print(), 1000);
+        cart = [];
+        renderCart();
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerAddress').value = '';
+        document.getElementById('discountPercent').value = '';
+        showToast('فاکتور ثبت و چاپ شد');
+        updateStats();
+    }
+    
+    function getInvoiceHTML(inv) {
+        let items = '';
+        for(let i of inv.items) {
+            items += `<tr><td style="padding:8px;">${escapeHtml(i.name)}${i.code ? '<br><small>کد: '+escapeHtml(i.code)+'</small>' : ''}</td><td style="padding:8px;">${i.quantity}</td><td style="padding:8px;">${i.sellPrice.toLocaleString('fa-IR')}</td><td style="padding:8px;">${(i.sellPrice*i.quantity).toLocaleString('fa-IR')}</td></tr>`;
+        }
+        let discHtml = inv.discountPercent > 0 ? `<div>تخفیف (${inv.discountPercent}%): ${inv.discountAmount.toLocaleString('fa-IR')} تومان</div>` : '';
+        return `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><title>فاکتور</title><style>@font-face{font-family:'Vazirmatn';src:url('Vazirmatn-VariableFont_wght.ttf');}body{font-family:'Vazirmatn',Tahoma;padding:20px;background:white;direction:rtl;}.inv{max-width:700px;margin:auto;background:white;border-radius:15px;padding:20px;}h2{color:#8b5a3c;}table{width:100%;border-collapse:collapse;}th,td{border-bottom:1px solid #ddd;padding:8px;text-align:center;}th{background:#f7ede3;}.total{font-size:1.2rem;font-weight:bold;border-top:2px solid #c28556;padding-top:10px;margin-top:10px;}</style></head><body><div class="inv"><h2>🧣 روسری فروشی ۱۱۰ مومنی</h2><p>تاریخ: ${inv.date}</p><div>👤 خریدار: ${escapeHtml(inv.customer)}</div><div>💰 پرداخت: ${inv.payment}</div><table><thead><tr><th>کالا</th><th>تعداد</th><th>قیمت</th><th>جمع</th></tr></thead><tbody>${items}</tbody></table><div>جمع کل: ${inv.subtotal.toLocaleString('fa-IR')} تومان</div>${discHtml}<div class="total">💰 قابل پرداخت: ${inv.total.toLocaleString('fa-IR')} تومان</div></div></body></html>`;
+    }
+    
+    function renderHistory() {
+        let container = document.getElementById('historyList');
+        if(!invoices.length) { container.innerHTML = '<div style="text-align:center; padding:2rem;">📭 فاکتوری ثبت نشده</div>'; return; }
+        container.innerHTML = '';
+        for(let inv of invoices) {
+            let div = document.createElement('div');
+            div.className = 'history-item';
+            div.innerHTML = `<input type="checkbox" class="history-checkbox" data-id="${inv.id}"><div><div class="history-customer">👤 ${escapeHtml(inv.customer)}</div><div class="history-date">📅 ${inv.date}</div></div><div class="history-amount">💰 ${formatPrice(inv.total)}</div>`;
+            let cb = div.querySelector('.history-checkbox');
+            cb.onclick = (e) => { e.stopPropagation(); if(cb.checked) selectedInvoices.add(inv.id); else selectedInvoices.delete(inv.id); };
+            container.appendChild(div);
+        }
+    }
+    
+    function deleteSelectedInvoices() {
+        if(selectedInvoices.size === 0) { showToast('هیچ فاکتوری انتخاب نشده', true); return; }
+        if(confirm(`حذف ${selectedInvoices.size} فاکتور؟`)) {
+            invoices = invoices.filter(inv => !selectedInvoices.has(inv.id));
+            selectedInvoices.clear();
+            saveData();
+            renderHistory();
+            showToast('حذف شد');
+        }
+    }
+    
+    function clearAllHistory() {
+        if(confirm('پاک کردن همه فاکتورها؟')) {
+            invoices = [];
+            selectedInvoices.clear();
+            saveData();
+            renderHistory();
+            showToast('همه فاکتورها پاک شد');
+        }
+    }
+    
+    function manualBackup() { triggerBackup(); }
+    function restoreBackup() {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = e => {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = ev => {
+                try {
+                    let data = JSON.parse(ev.target.result);
+                    products = data.products || [];
+                    nextId = data.nextId || 1;
+                    invoices = data.invoices || [];
+                    cart = [];
+                    selectedInvoices.clear();
+                    saveData();
+                    renderProducts();
+                    renderCart();
+                    renderHistory();
+                    updateStats();
+                    showToast('بازیابی موفق');
+                } catch(err) { showToast('فایل نامعتبر', true); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    // تابع سوئیچ تب
+    function switchTab(tabId) {
+        let tabs = document.querySelectorAll('.tab-content');
+        for(let i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove('active');
+        }
+        let btns = document.querySelectorAll('.tab-btn');
+        for(let i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+        let activeTab = document.getElementById('tab-' + tabId);
+        if(activeTab) activeTab.classList.add('active');
+        let activeBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+        if(activeBtn) activeBtn.classList.add('active');
+        if(tabId === 'invoice') updateDateTime();
+    }
+    
+    // دارک/لایت مود
+    function initTheme() {
+        // حذف هرگونه theme ذخیره شده و همیشه لایت مود باشه
+        localStorage.removeItem('theme');
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        let themeBtn = document.getElementById('themeBtn');
+        if(themeBtn) themeBtn.innerText = '🌙';
+    }
+    
+    function toggleTheme() {
+        let themeBtn = document.getElementById('themeBtn');
+        if(document.body.classList.contains('light-mode')) {
+            document.body.classList.remove('light-mode');
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            themeBtn.innerText = '☀️';
+            showToast('حالت دارک فعال شد');
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+            themeBtn.innerText = '🌙';
+            showToast('حالت لایت فعال شد');
+        }
+    }
+    
+    async function login() {
+        let user = document.getElementById('loginUsername').value.trim();
+        let pass = document.getElementById('loginPassword').value;
+        let err = document.getElementById('loginError');
+        if(!user || !pass) { err.innerText = '❌ نام کاربری و رمز را وارد کنید'; err.classList.add('show'); return; }
+        try {
+            let res = await fetch('login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, password: pass })
+            });
+            let data = await res.json();
+            if(data.success) {
+                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('visible');
+                loadData();
+                renderCart();
+                startAutoBackup();
+                updateDateTime();
+                showToast('ورود موفق');
+            } else {
+                err.innerText = '❌ نام کاربری یا رمز اشتباه';
+                err.classList.add('show');
+            }
+        } catch(e) {
+            err.innerText = '❌ خطا در ارتباط با سرور';
+            err.classList.add('show');
+        }
+    }
+    
+    function logout() {
+        stopAutoBackup();
+        document.getElementById('loginContainer').classList.remove('hidden');
+        document.getElementById('mainContent').classList.remove('visible');
+        showToast('خارج شدید');
+    }
+    
+    document.getElementById('loginBtn').onclick = login;
+    document.getElementById('logoutBtn').onclick = logout;
+    document.getElementById('themeBtn').onclick = toggleTheme;
+    document.getElementById('searchBtn').onclick = () => { currentFilter = document.getElementById('productSearch').value; renderProducts(); };
+    document.getElementById('openAddProductModal').onclick = () => { editMode = false; document.getElementById('modalTitle').innerText = '➕ محصول جدید'; document.getElementById('prodName').value = ''; document.getElementById('prodCode').value = ''; document.getElementById('buyPrice').value = ''; document.getElementById('sellPrice').value = ''; document.getElementById('productModal').classList.add('active'); };
+    document.getElementById('saveProductBtn').onclick = saveProduct;
+    document.getElementById('closeModalBtn').onclick = () => document.getElementById('productModal').classList.remove('active');
+    document.getElementById('clearCartBtn').onclick = clearCart;
+    document.getElementById('printInvoiceBtn').onclick = saveInvoiceAndPrint;
+    document.getElementById('deleteSelectedBtn').onclick = deleteSelectedInvoices;
+    document.getElementById('clearHistoryBtn').onclick = clearAllHistory;
+    document.getElementById('manualBackupBtn').onclick = manualBackup;
+    document.getElementById('restoreBackupBtn').onclick = restoreBackup;
+    document.getElementById('discountPercent').oninput = renderCart;
+    document.getElementById('quickProductSearch').oninput = quickSearchProducts;
+    document.getElementById('paymentType').onchange = function() {
+        document.getElementById('bothPayment').style.display = this.value === 'both' ? 'block' : 'none';
+        document.getElementById('otherPayment').style.display = this.value === 'other' ? 'block' : 'none';
+    };
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.onclick = () => switchTab(btn.dataset.tab);
+    });
+    
+    // مقداردهی اولیه - همیشه لایت مود
+    initTheme();
+    updateDateTime();
+</script>
+</body>
+</html>
