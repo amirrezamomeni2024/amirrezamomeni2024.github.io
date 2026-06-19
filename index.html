@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شال و روسری ۱۱۰ مومنی | فاکتور فروش</title>
     
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="۱۱۰ مومنی">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="سامانه ثبت و چاپ فاکتور فروش شال و روسری ۱۱۰ مومنی">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
     <svg style="display: none;" aria-hidden="true">
         <defs>
             <symbol id="cardCredit" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="8" width="20" height="3" fill="currentColor" opacity="0.15"/></symbol>
@@ -45,8 +58,6 @@
             --primary-text: #fff;
             --danger: #d32f2f;
             --danger-bg: #fef2f2;
-            --success: #2e7d32;
-            --success-bg: #e8f5e9;
             --overlay: rgba(0,0,0,0.6);
             --shadow: 0 1px 3px rgba(0,0,0,0.08);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
@@ -72,8 +83,6 @@
             --primary-text: #1a1a1a;
             --danger: #ef5350;
             --danger-bg: #3e1a1a;
-            --success: #66bb6a;
-            --success-bg: #1a3e1a;
             --overlay: rgba(0,0,0,0.85);
             --shadow: 0 1px 3px rgba(0,0,0,0.3);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
@@ -410,9 +419,18 @@
     <div class="print-only" id="printSection"></div>
 
     <script>
+        // ==================== PWA Service Worker ====================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker failed', err));
+        }
+
+        // ==================== THEME ====================
         function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.getElementById('themeToggle').innerHTML=n==='dark'?'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconSun"></use></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconMoon"></use></svg>';}
         (function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeToggle').innerHTML=s==='dark'?'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconSun"></use></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconMoon"></use></svg>';})();
         
+        // ==================== PAYMENT HANDLER ====================
         function handlePaymentChange() {
             const pm = getPayment();
             const gs = document.getElementById('gatewaySection');
@@ -449,11 +467,13 @@
             return clone.outerHTML;
         }
         
+        // ==================== PRODUCTS ====================
         let ic=0;window.onload=()=>addItem();
         function addItem(){ic++;const c=document.getElementById('itemsContainer');const r=document.createElement('div');r.className='item-row';r.id=`item-${ic}`;r.innerHTML=`<div class="form-group"><label class="form-label">نام محصول</label><input type="text" class="form-input product-name" placeholder="مثلاً: روسری ابریشم"></div><div class="form-group"><label class="form-label">قیمت (تومان)</label><input type="number" class="form-input product-price" placeholder="۰" oninput="calcTotal()"></div><div class="form-group"><label class="form-label">تعداد</label><input type="number" class="form-input product-quantity" value="1" min="1" oninput="calcTotal()"></div>${ic>1?`<button class="btn btn-remove" onclick="removeItem(${ic})">✕ حذف</button>`:''}`;c.appendChild(r);calcTotal();}
         function removeItem(id){const e=document.getElementById(`item-${id}`);if(e){e.remove();calcTotal();}}
         function calcTotal(){let t=0;document.querySelectorAll('.product-price').forEach((p,i)=>t+=(parseFloat(p.value)||0)*(parseInt(document.querySelectorAll('.product-quantity')[i].value)||0));document.getElementById('totalPrice').textContent=t.toLocaleString('fa-IR');}
         
+        // ==================== VALIDATION ====================
         function validate(){
             let v=true;
             const n=document.getElementById('customerName'),p=document.getElementById('customerPhone');
@@ -466,6 +486,7 @@
             return v;
         }
         
+        // ==================== LOG SYSTEM ====================
         function getLogs(){return JSON.parse(localStorage.getItem('invoiceLogs')||'[]');}
         function saveLogs(l){localStorage.setItem('invoiceLogs',JSON.stringify(l));}
         function addLog(d){const l=getLogs();l.unshift({...d,timestamp:new Date().toISOString()});saveLogs(l);}
@@ -478,6 +499,7 @@
         function printLogInvoice(i){const log=getLogs()[i];if(log){document.getElementById('printSection').innerHTML=log.printHTML;closeLog();setTimeout(()=>window.print(),300);}}
         function genInv(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}-${Math.floor(Math.random()*9000)+1000}`;}
         
+        // ==================== INVOICE GENERATION ====================
         function generateInvoice(){
             if(!validate()){alert('لطفاً فیلدهای اجباری را تکمیل کنید');return;}
             const cn=document.getElementById('customerName').value,cp=document.getElementById('customerPhone').value,ca=document.getElementById('customerAddress').value,sh=getShipping(),pm=getPayment();
