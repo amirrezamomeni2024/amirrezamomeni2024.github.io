@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شال و روسری ۱۱۰ مومنی | فاکتور فروش</title>
     
-    <!-- PWA Meta Tags -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png?v=1.0" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1.0" />
+    <link rel="shortcut icon" href="/favicon.ico?v=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.0" />
+    <meta name="apple-mobile-web-app-title" content="۱۱۰ مومنی" />
+    <link rel="manifest" href="/site.webmanifest?v=1.0" />
+    
+    <!-- PWA Meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="۱۱۰ مومنی">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="description" content="سامانه ثبت و چاپ فاکتور فروش شال و روسری ۱۱۰ مومنی">
-    
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json">
     
     <svg style="display: none;" aria-hidden="true">
         <defs>
@@ -419,32 +420,23 @@
     <div class="print-only" id="printSection"></div>
 
     <script>
-        // ==================== PWA Service Worker ====================
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('Service Worker registered'))
-                .catch(err => console.log('Service Worker failed', err));
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW failed', err));
         }
 
-        // ==================== THEME ====================
         function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.getElementById('themeToggle').innerHTML=n==='dark'?'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconSun"></use></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconMoon"></use></svg>';}
         (function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeToggle').innerHTML=s==='dark'?'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconSun"></use></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><use xlink:href="#iconMoon"></use></svg>';})();
         
-        // ==================== PAYMENT HANDLER ====================
         function handlePaymentChange() {
             const pm = getPayment();
             const gs = document.getElementById('gatewaySection');
             const ps = document.getElementById('paymentSplit');
             const gb = document.getElementById('gatewayBadge');
-            
             gs.classList.add('active');
-            if (pm === 'چکی') {
-                gb.textContent = 'اختیاری';
-                gb.className = 'badge badge-optional';
-            } else {
-                gb.textContent = 'اجباری';
-                gb.className = 'badge badge-required';
-            }
+            if (pm === 'چکی') { gb.textContent = 'اختیاری'; gb.className = 'badge badge-optional'; }
+            else { gb.textContent = 'اجباری'; gb.className = 'badge badge-required'; }
             ps.classList.toggle('active', pm === 'نقدی + چکی');
         }
         
@@ -467,13 +459,11 @@
             return clone.outerHTML;
         }
         
-        // ==================== PRODUCTS ====================
         let ic=0;window.onload=()=>addItem();
         function addItem(){ic++;const c=document.getElementById('itemsContainer');const r=document.createElement('div');r.className='item-row';r.id=`item-${ic}`;r.innerHTML=`<div class="form-group"><label class="form-label">نام محصول</label><input type="text" class="form-input product-name" placeholder="مثلاً: روسری ابریشم"></div><div class="form-group"><label class="form-label">قیمت (تومان)</label><input type="number" class="form-input product-price" placeholder="۰" oninput="calcTotal()"></div><div class="form-group"><label class="form-label">تعداد</label><input type="number" class="form-input product-quantity" value="1" min="1" oninput="calcTotal()"></div>${ic>1?`<button class="btn btn-remove" onclick="removeItem(${ic})">✕ حذف</button>`:''}`;c.appendChild(r);calcTotal();}
         function removeItem(id){const e=document.getElementById(`item-${id}`);if(e){e.remove();calcTotal();}}
         function calcTotal(){let t=0;document.querySelectorAll('.product-price').forEach((p,i)=>t+=(parseFloat(p.value)||0)*(parseInt(document.querySelectorAll('.product-quantity')[i].value)||0));document.getElementById('totalPrice').textContent=t.toLocaleString('fa-IR');}
         
-        // ==================== VALIDATION ====================
         function validate(){
             let v=true;
             const n=document.getElementById('customerName'),p=document.getElementById('customerPhone');
@@ -486,7 +476,6 @@
             return v;
         }
         
-        // ==================== LOG SYSTEM ====================
         function getLogs(){return JSON.parse(localStorage.getItem('invoiceLogs')||'[]');}
         function saveLogs(l){localStorage.setItem('invoiceLogs',JSON.stringify(l));}
         function addLog(d){const l=getLogs();l.unshift({...d,timestamp:new Date().toISOString()});saveLogs(l);}
@@ -499,7 +488,6 @@
         function printLogInvoice(i){const log=getLogs()[i];if(log){document.getElementById('printSection').innerHTML=log.printHTML;closeLog();setTimeout(()=>window.print(),300);}}
         function genInv(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}-${Math.floor(Math.random()*9000)+1000}`;}
         
-        // ==================== INVOICE GENERATION ====================
         function generateInvoice(){
             if(!validate()){alert('لطفاً فیلدهای اجباری را تکمیل کنید');return;}
             const cn=document.getElementById('customerName').value,cp=document.getElementById('customerPhone').value,ca=document.getElementById('customerAddress').value,sh=getShipping(),pm=getPayment();
